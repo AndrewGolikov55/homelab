@@ -37,6 +37,7 @@ resource "proxmox_vm_qemu" "dc" {
   memory = 4096
   scsihw = "virtio-scsi-pci"
   bootdisk = "scsi0"
+  vga = "qxl"
   disk {
     slot = 0
     # Установите здесь размер диска. Оставьте его маленьким для тестирования, расширение диска требует времени.
