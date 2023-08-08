@@ -14,7 +14,7 @@ provider "proxmox" {
 }
 
 # Ресурс форматируется как "[тип]" "[имя_сущности]", так что в данном случае мы собираемся создать сущность proxmox_vm_qemu с именем test_server.
-resource "proxmox" "dc" {
+resource "proxmox_vm_qemu" "dc" {
    
   # Пока нужна только одна, можно установить 0 для удаления ВМ.
   count = 2
