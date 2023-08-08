@@ -76,3 +76,318 @@ resource "proxmox_vm_qemu" "dc" {
   ${var.ssh_key}
   EOF
 }
+
+resource "proxmox_vm_qemu" "dhcp" {
+   
+  count = 1
+  name = "aldpro-dhcp"
+  target_node = var.proxmox_host
+  clone = var.template_name
+ 
+  agent = 1
+  os_type = "cloud-init"
+  cores = 2
+  sockets = 1
+  cpu = "host"
+  memory = 2048
+  scsihw = "virtio-scsi-pci"
+  bootdisk = "scsi0"
+
+  disk {
+    slot = 0
+    size = "30G"
+    type = "scsi"
+    storage = "local-zfs"
+    iothread = 1
+  }
+   
+  network {
+    model = "virtio"
+    bridge = "vmbr1"
+  }
+ 
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
+
+  ciuser = "u"
+  cipassword = "1"
+   
+  ipconfig0 = "ip=10.0.11.20/24,gw=10.0.11.1"
+   
+  sshkeys = <<EOF
+  ${var.ssh_key}
+  EOF
+}
+
+resource "proxmox_vm_qemu" "zabbix" {
+   
+  count = 0
+  name = "aldpro-zabbix"
+  target_node = var.proxmox_host
+  clone = var.template_name
+ 
+  agent = 1
+  os_type = "cloud-init"
+  cores = 2
+  sockets = 1
+  cpu = "host"
+  memory = 2048
+  scsihw = "virtio-scsi-pci"
+  bootdisk = "scsi0"
+
+  disk {
+    slot = 0
+    size = "30G"
+    type = "scsi"
+    storage = "local-zfs"
+    iothread = 1
+  }
+   
+  network {
+    model = "virtio"
+    bridge = "vmbr1"
+  }
+ 
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
+
+  ciuser = "u"
+  cipassword = "1"
+   
+  ipconfig0 = "ip=10.0.11.21/24,gw=10.0.11.1"
+   
+  sshkeys = <<EOF
+  ${var.ssh_key}
+  EOF
+}
+
+resource "proxmox_vm_qemu" "repo" {
+   
+  count = 0
+  name = "aldpro-repo"
+  target_node = var.proxmox_host
+  clone = var.template_name
+ 
+  agent = 1
+  os_type = "cloud-init"
+  cores = 2
+  sockets = 1
+  cpu = "host"
+  memory = 4096
+  scsihw = "virtio-scsi-pci"
+  bootdisk = "scsi0"
+
+  disk {
+    slot = 0
+    size = "100G"
+    type = "scsi"
+    storage = "local-zfs"
+    iothread = 1
+  }
+   
+  network {
+    model = "virtio"
+    bridge = "vmbr1"
+  }
+ 
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
+
+  ciuser = "u"
+  cipassword = "1"
+   
+  ipconfig0 = "ip=10.0.11.22/24,gw=10.0.11.1"
+   
+  sshkeys = <<EOF
+  ${var.ssh_key}
+  EOF
+}
+
+resource "proxmox_vm_qemu" "pxe" {
+   
+  count = 0
+  name = "aldpro-pxe"
+  target_node = var.proxmox_host
+  clone = var.template_name
+ 
+  agent = 1
+  os_type = "cloud-init"
+  cores = 2
+  sockets = 1
+  cpu = "host"
+  memory = 2048
+  scsihw = "virtio-scsi-pci"
+  bootdisk = "scsi0"
+
+  disk {
+    slot = 0
+    size = "30G"
+    type = "scsi"
+    storage = "local-zfs"
+    iothread = 1
+  }
+   
+  network {
+    model = "virtio"
+    bridge = "vmbr1"
+  }
+ 
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
+
+  ciuser = "u"
+  cipassword = "1"
+   
+  ipconfig0 = "ip=10.0.11.23/24,gw=10.0.11.1"
+   
+  sshkeys = <<EOF
+  ${var.ssh_key}
+  EOF
+}
+
+resource "proxmox_vm_qemu" "cups" {
+   
+  count = 0
+  name = "aldpro-cups"
+  target_node = var.proxmox_host
+  clone = var.template_name
+ 
+  agent = 1
+  os_type = "cloud-init"
+  cores = 2
+  sockets = 1
+  cpu = "host"
+  memory = 2048
+  scsihw = "virtio-scsi-pci"
+  bootdisk = "scsi0"
+
+  disk {
+    slot = 0
+    size = "30G"
+    type = "scsi"
+    storage = "local-zfs"
+    iothread = 1
+  }
+   
+  network {
+    model = "virtio"
+    bridge = "vmbr1"
+  }
+ 
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
+
+  ciuser = "u"
+  cipassword = "1"
+   
+  ipconfig0 = "ip=10.0.11.24/24,gw=10.0.11.1"
+   
+  sshkeys = <<EOF
+  ${var.ssh_key}
+  EOF
+}
+
+resource "proxmox_vm_qemu" "smb" {
+   
+  count = 0
+  name = "aldpro-smb"
+  target_node = var.proxmox_host
+  clone = var.template_name
+ 
+  agent = 1
+  os_type = "cloud-init"
+  cores = 2
+  sockets = 1
+  cpu = "host"
+  memory = 2048
+  scsihw = "virtio-scsi-pci"
+  bootdisk = "scsi0"
+
+  disk {
+    slot = 0
+    size = "30G"
+    type = "scsi"
+    storage = "local-zfs"
+    iothread = 1
+  }
+   
+  network {
+    model = "virtio"
+    bridge = "vmbr1"
+  }
+ 
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
+
+  ciuser = "u"
+  cipassword = "1"
+   
+  ipconfig0 = "ip=10.0.11.25/24,gw=10.0.11.1"
+   
+  sshkeys = <<EOF
+  ${var.ssh_key}
+  EOF
+}
+
+resource "proxmox_vm_qemu" "logs" {
+   
+  count = 0
+  name = "aldpro-logs"
+  target_node = var.proxmox_host
+  clone = var.template_name
+ 
+  agent = 1
+  os_type = "cloud-init"
+  cores = 2
+  sockets = 1
+  cpu = "host"
+  memory = 2048
+  scsihw = "virtio-scsi-pci"
+  bootdisk = "scsi0"
+
+  disk {
+    slot = 0
+    size = "30G"
+    type = "scsi"
+    storage = "local-zfs"
+    iothread = 1
+  }
+   
+  network {
+    model = "virtio"
+    bridge = "vmbr1"
+  }
+ 
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
+
+  ciuser = "u"
+  cipassword = "1"
+   
+  ipconfig0 = "ip=10.0.11.26/24,gw=10.0.11.1"
+   
+  sshkeys = <<EOF
+  ${var.ssh_key}
+  EOF
+}
