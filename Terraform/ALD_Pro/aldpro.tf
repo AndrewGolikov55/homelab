@@ -124,7 +124,7 @@ resource "proxmox_vm_qemu" "dhcp" {
 
 resource "proxmox_vm_qemu" "zabbix" {
    
-  count = 0
+  count = 1
   name = "aldpro-zabbix"
   target_node = var.proxmox_host
   clone = var.template_name
@@ -143,7 +143,7 @@ resource "proxmox_vm_qemu" "zabbix" {
     size = "30G"
     type = "scsi"
     storage = "local-zfs"
-    iothread = 1
+    iothread = 0
   }
    
   network {
@@ -169,7 +169,7 @@ resource "proxmox_vm_qemu" "zabbix" {
 
 resource "proxmox_vm_qemu" "repo" {
    
-  count = 0
+  count = 1
   name = "aldpro-repo"
   target_node = var.proxmox_host
   clone = var.template_name
@@ -188,7 +188,7 @@ resource "proxmox_vm_qemu" "repo" {
     size = "100G"
     type = "scsi"
     storage = "local-zfs"
-    iothread = 1
+    iothread = 0
   }
    
   network {
@@ -214,7 +214,7 @@ resource "proxmox_vm_qemu" "repo" {
 
 resource "proxmox_vm_qemu" "pxe" {
    
-  count = 0
+  count = 1
   name = "aldpro-pxe"
   target_node = var.proxmox_host
   clone = var.template_name
@@ -233,7 +233,7 @@ resource "proxmox_vm_qemu" "pxe" {
     size = "30G"
     type = "scsi"
     storage = "local-zfs"
-    iothread = 1
+    iothread = 0
   }
    
   network {
@@ -259,7 +259,7 @@ resource "proxmox_vm_qemu" "pxe" {
 
 resource "proxmox_vm_qemu" "cups" {
    
-  count = 0
+  count = 1
   name = "aldpro-cups"
   target_node = var.proxmox_host
   clone = var.template_name
@@ -278,7 +278,7 @@ resource "proxmox_vm_qemu" "cups" {
     size = "30G"
     type = "scsi"
     storage = "local-zfs"
-    iothread = 1
+    iothread = 0
   }
    
   network {
@@ -304,7 +304,7 @@ resource "proxmox_vm_qemu" "cups" {
 
 resource "proxmox_vm_qemu" "smb" {
    
-  count = 0
+  count = 1
   name = "aldpro-smb"
   target_node = var.proxmox_host
   clone = var.template_name
@@ -323,7 +323,7 @@ resource "proxmox_vm_qemu" "smb" {
     size = "30G"
     type = "scsi"
     storage = "local-zfs"
-    iothread = 1
+    iothread = 0
   }
    
   network {
@@ -349,7 +349,7 @@ resource "proxmox_vm_qemu" "smb" {
 
 resource "proxmox_vm_qemu" "logs" {
    
-  count = 0
+  count = 1
   name = "aldpro-logs"
   target_node = var.proxmox_host
   clone = var.template_name
@@ -368,7 +368,7 @@ resource "proxmox_vm_qemu" "logs" {
     size = "30G"
     type = "scsi"
     storage = "local-zfs"
-    iothread = 1
+    iothread = 0
   }
    
   network {
