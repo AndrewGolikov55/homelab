@@ -75,7 +75,7 @@ resource "proxmox_vm_qemu" "dc" {
   # ${count.index + 1} на пример параметра "name" будет добавлять значение в конец IP-адреса.
   # В этом случае, если мы добавим только одну ВМ, тогда IP-адрес будет 10.98.1.91, где count.index начинается с 0.
   # Таким образом, вы можете создать несколько ВМ с выделенным IP-адресом для каждой (.91, .92, .93, и так далее.).
-  ipconfig0 = "ip=10.0.11.3${count.index + 1}/24,gw=10.0.11.1"
+  ipconfig0 = "ip=10.10.11.3${count.index + 1}/24,gw=10.10.11.1"
    
   # sshkeys использует наш файл vars.tf. Переменная var.ssh_key содержит SSH-ключ.
   sshkeys = <<EOF
@@ -123,7 +123,7 @@ resource "proxmox_vm_qemu" "dhcp" {
   ciuser = "u"
   cipassword = "1"
    
-  ipconfig0 = "ip=10.0.11.20/24,gw=10.0.11.1"
+  ipconfig0 = "ip=10.10.11.20/24,gw=10.10.11.1"
    
   sshkeys = <<EOF
   ${var.ssh_key}
@@ -170,7 +170,7 @@ resource "proxmox_vm_qemu" "zabbix" {
   ciuser = "u"
   cipassword = "1"
    
-  ipconfig0 = "ip=10.0.11.21/24,gw=10.0.11.1"
+  ipconfig0 = "ip=10.10.11.21/24,gw=10.10.11.1"
    
   sshkeys = <<EOF
   ${var.ssh_key}
@@ -217,7 +217,7 @@ resource "proxmox_vm_qemu" "repo" {
   ciuser = "u"
   cipassword = "1"
    
-  ipconfig0 = "ip=10.0.11.22/24,gw=10.0.11.1"
+  ipconfig0 = "ip=10.10.11.22/24,gw=10.10.11.1"
    
   sshkeys = <<EOF
   ${var.ssh_key}
@@ -264,7 +264,7 @@ resource "proxmox_vm_qemu" "pxe" {
   ciuser = "u"
   cipassword = "1"
    
-  ipconfig0 = "ip=10.0.11.23/24,gw=10.0.11.1"
+  ipconfig0 = "ip=10.10.11.23/24,gw=10.10.11.1"
    
   sshkeys = <<EOF
   ${var.ssh_key}
@@ -311,7 +311,7 @@ resource "proxmox_vm_qemu" "cups" {
   ciuser = "u"
   cipassword = "1"
    
-  ipconfig0 = "ip=10.0.11.24/24,gw=10.0.11.1"
+  ipconfig0 = "ip=10.10.11.24/24,gw=10.10.11.1"
    
   sshkeys = <<EOF
   ${var.ssh_key}
@@ -358,7 +358,7 @@ resource "proxmox_vm_qemu" "smb" {
   ciuser = "u"
   cipassword = "1"
    
-  ipconfig0 = "ip=10.0.11.25/24,gw=10.0.11.1"
+  ipconfig0 = "ip=10.10.11.25/24,gw=10.10.11.1"
    
   sshkeys = <<EOF
   ${var.ssh_key}
@@ -405,7 +405,7 @@ resource "proxmox_vm_qemu" "logs" {
   ciuser = "u"
   cipassword = "1"
    
-  ipconfig0 = "ip=10.0.11.26/24,gw=10.0.11.1"
+  ipconfig0 = "ip=10.10.11.26/24,gw=10.10.11.1"
    
   sshkeys = <<EOF
   ${var.ssh_key}
