@@ -21,7 +21,7 @@ resource "proxmox_vm_qemu" "dc" {
   count = 2
  
   # count.index начинается с 0, поэтому +1 означает, что эта виртуальная машина будет названа test-vm-1 в Proxmox.
-  name = "aldpro-dc-${count.index + 1}"
+  name = "dc${count.index + 1}"
 
   # Тип ОС, в примере используется Linux 6.x - 2.6 Kernel
   qemu_os = "l26"
@@ -84,7 +84,7 @@ resource "proxmox_vm_qemu" "dc" {
 resource "proxmox_vm_qemu" "dhcp" {
    
   count = 1
-  name = "aldpro-dhcp"
+  name = "dhcp"
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
@@ -130,7 +130,7 @@ resource "proxmox_vm_qemu" "dhcp" {
 resource "proxmox_vm_qemu" "zabbix" {
    
   count = 1
-  name = "aldpro-zabbix"
+  name = "zabbix"
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
@@ -176,7 +176,7 @@ resource "proxmox_vm_qemu" "zabbix" {
 resource "proxmox_vm_qemu" "repo" {
    
   count = 1
-  name = "aldpro-repo"
+  name = "repo"
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
@@ -222,7 +222,7 @@ resource "proxmox_vm_qemu" "repo" {
 resource "proxmox_vm_qemu" "pxe" {
    
   count = 1
-  name = "aldpro-pxe"
+  name = "pxe"
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
@@ -268,7 +268,7 @@ resource "proxmox_vm_qemu" "pxe" {
 resource "proxmox_vm_qemu" "cups" {
    
   count = 1
-  name = "aldpro-cups"
+  name = "cups"
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
@@ -314,7 +314,7 @@ resource "proxmox_vm_qemu" "cups" {
 resource "proxmox_vm_qemu" "smb" {
    
   count = 1
-  name = "aldpro-smb"
+  name = "smb"
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
@@ -360,7 +360,7 @@ resource "proxmox_vm_qemu" "smb" {
 resource "proxmox_vm_qemu" "logs" {
    
   count = 1
-  name = "aldpro-logs"
+  name = "logs"
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
