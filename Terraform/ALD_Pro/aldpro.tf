@@ -47,7 +47,7 @@ resource "proxmox_vm_qemu" "dc" {
     size = "50G"
     type = "scsi"
     storage = "local-zfs"
-    iothread = 1
+    iothread = 0
   }
    
   # Если вам нужны две сетевые карты, просто скопируйте весь этот сетевой раздел и продублируйте его.
@@ -98,7 +98,7 @@ resource "proxmox_vm_qemu" "dhcp" {
     size = "30G"
     type = "scsi"
     storage = "local-zfs"
-    iothread = 1
+    iothread = 0
   }
    
   network {
