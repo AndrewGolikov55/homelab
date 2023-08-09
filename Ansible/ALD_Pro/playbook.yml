@@ -1,0 +1,11 @@
+- name: Set up ALD Pro domain controller
+  hosts: dc1
+  become: true
+  gather_facts: true
+  roles:
+    - role: astra.ald_pro.controller
+      vars:
+        aldpro_domain: aldpro.lan
+        aldpro_pdc_ip: 10.0.11.31
+        aldpro_pdc_name: dc1
+        aldpro_admin_password: 46f0a76b

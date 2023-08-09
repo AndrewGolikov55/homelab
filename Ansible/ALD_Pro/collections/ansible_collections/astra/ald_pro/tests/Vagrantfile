@@ -1,0 +1,63 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+nodes = {
+  "dc01"     => { :ip => "192.168.56.11", :cpus => "4", :mem => "4296"},
+  "client01" => { :ip => "192.168.56.12", :cpus => "2", :mem => "4296"}
+}
+
+$resolv = <<-SCRIPT
+cat << EOF > /etc/dhcp/dhclient-enter-hooks.d/resolv
+make_resolv_conf() {
+	true
+}
+EOF
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  provider = ENV["VAGRANT_DISTRO"]
+
+  config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/home/vagrant/.ssh/id_rsa.pub"
+  config.vm.provision "shell" , inline: "cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
+
+  nodes.each_with_index do |(hostname, cfg), index|
+    config.vm.define hostname do |node|
+      node.vm.synced_folder ".", "/vagrant", disabled: true
+      node.vm.hostname = hostname
+
+      # Install Astra with gui if machine name contains 'agent'.
+      if hostname =~ /client/i
+        gui = "-gui"
+      else
+        gui = ""
+      end
+
+      node.vm.provider "virtualbox" do |v|
+        case provider
+          when "alse-smolensk"
+            config.vm.box = "alse-vanilla" + gui +"-max/1.7.3"
+            config.vm.box_url = "https://artifactory.astralinux.ru/artifactory/api/vagrant/mg-vagrant/alse-vanilla" + gui + "-max%2F1.7.3"
+        end
+
+        v.cpus = cfg[:cpus]
+        v.memory = cfg[:mem]
+        v.auto_nat_dns_proxy = false
+        v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+        v.customize ["modifyvm", :id, "--audio", "none"]
+        v.customize ["modifyvm", :id, "--pae", "off"]
+        v.customize  ['modifyvm', :id, '--nested-hw-virt', 'on']
+      end
+
+      node.vm.network "private_network",
+        :ip => cfg[:ip],
+        :virtualbox__host_ip => "192.168.56.1",
+        :virtualbox__dhcp_enabled => false,
+        :virtualbox__netmask => "255.255.255.0"
+      node.vm.provision "shell", inline: $resolv
+      if hostname =~ /client/i
+        node.vm.provision "shell", inline: 'echo -e "#loopback\nauto lo\niface lo inet loopback" > /etc/network/interfaces'
+        node.vm.provision "shell", inline: "nmcli con mod \"Проводное соединение 2\" ipv4.method manual ipv4.addresses ${1}/24", :args => cfg[:ip]
+      end
+    end
+  end
+end

@@ -1,0 +1,25 @@
+---
+- name: Install package ca-certificates
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+    state: latest
+
+- name: Add the ALD Pro repository
+  ansible.builtin.apt_repository:
+    repo: "{{ item }}"
+    state: "{{ aldpro_repo_state }}"
+    filename: aldpro
+  loop: "{{ aldpro_repo }}"
+
+- name: Configure apt priority
+  ansible.builtin.copy:
+    dest: /etc/apt/preferences.d/aldpro
+    content: |
+      Package: *
+      Pin: release n={{ aldpro_extended_version }}
+      Pin-Priority: 900
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true

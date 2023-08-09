@@ -1,0 +1,40 @@
+---
+# Check for Astra Linux mode value.
+- name: Get current astra mode
+  block:
+    - name: Get current astra mode id
+      ansible.builtin.command: 'astra-modeswitch get'
+      register: _aldpro_astra_mode_result
+      changed_when: false
+
+    - name: Set value for the astra_mode fact
+      ansible.builtin.set_fact:
+        _aldpro_astra_mode: "{{ _aldpro_astra_mode_result.stdout | trim }}"
+  rescue:
+    - ansible.builtin.fail:
+        msg: "Unexpected error: {{ ansible_failed_result.msg }} "
+      run_once: true
+
+- name: Validate the astra_mode value
+  ansible.builtin.assert:
+    fail_msg: "Unknown Astra Linux mode {{ _aldpro_astra_mode }}"
+    quiet: true
+    that:
+      - _aldpro_astra_mode | int in [0, 1, 2]
+
+- name: Check the ALSE Max('Smolensk') mode
+  ansible.builtin.assert:
+    fail_msg: "Supported only Max('Smolensk') mode in ALSE,  current mode - {{ ['Orel','Voronez','Smolensk'][_aldpro_astra_mode | int] }} "
+    quiet: true
+    that:
+      - _aldpro_astra_mode | int == 2
+
+# Check memory requirement
+- name: Check the system memory requirements for server
+  ansible.builtin.assert:
+    that:
+      - ansible_memtotal_mb >= aldpro_server_minimal_memory_mb
+    fail_msg: |
+      Server ALD Pro required: {{ aldpro_server_minimal_memory_mb }} MB of RAM.
+      Host available memory: {{ ansible_memtotal_mb }} MB of RAM.
+  run_once: true

@@ -1,0 +1,14 @@
+---
+- hosts: server
+  become: true
+  vars_files:
+    ./vars.yml
+  roles:
+    - astra.ald_pro.controller
+
+- hosts: clients
+  become: true
+  vars_files:
+    ./vars.yml
+  roles:
+    - astra.ald_pro.client

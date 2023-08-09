@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  role_name: astra.ald_pro.client
+  company: LLC "RusBITech-Astra"
+  author:
+    - LLC "RusBITech-Astra"
+  description: Role for deploy ALD PRO client
+  license: Apache 2.0
+  min_ansible_version: 2.10.2
+  platforms:
+    - name: ALSE
+      versions:
+        - 1.7.2
+        - 1.7.3
+dependencies:
+  - role: astra.ald_pro.common

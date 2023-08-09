@@ -1,0 +1,10 @@
+---
+################# ALD PRO general variables ###########################
+
+################# ALD PRO controller variables ########################
+_aldpro_controller_pkgs: aldpro-mp
+_aldpro_freeipa_install_script: /opt/rbta/aldpro/mp/bin/aldpro-server-install.sh
+
+################# ALD PRO client variables ############################
+_aldpro_client_pkgs: aldpro-client
+_aldpro_client_installer: '/opt/rbta/aldpro/client/bin/aldpro-client-installer'

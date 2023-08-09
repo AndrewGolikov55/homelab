@@ -1,0 +1,8 @@
+---
+- name: Check client required variables
+  ansible.builtin.assert:
+    fail_msg: "Not all client required variables are defined"
+    that:
+      - aldpro_pdc_ip
+      - aldpro_pdc_name
+  run_once: true

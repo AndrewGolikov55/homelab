@@ -1,0 +1,6 @@
+*.iso
+*.retry
+__pycache__
+tests/.vagrant
+!tests/roles/aldpro
+test/roles
