@@ -31,6 +31,8 @@ resource "proxmox_vm_qemu" "dc" {
  
   # Эта переменная содержит значение "alse-174-vanilla-template"
   clone = var.template_name
+
+  tags = "aldpro"
  
   # Основные настройки ВМ. Агент относится к гостевому агенту.
   agent = 1
@@ -88,7 +90,8 @@ resource "proxmox_vm_qemu" "dhcp" {
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
- 
+  tags = "aldpro"
+
   agent = 1
   os_type = "cloud-init"
   cores = 2
@@ -134,7 +137,8 @@ resource "proxmox_vm_qemu" "zabbix" {
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
- 
+  tags = "aldpro"
+
   agent = 1
   os_type = "cloud-init"
   cores = 2
@@ -180,7 +184,8 @@ resource "proxmox_vm_qemu" "repo" {
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
- 
+  tags = "aldpro"
+
   agent = 1
   os_type = "cloud-init"
   cores = 2
@@ -226,7 +231,8 @@ resource "proxmox_vm_qemu" "pxe" {
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
- 
+  tags = "aldpro"
+
   agent = 1
   os_type = "cloud-init"
   cores = 2
@@ -272,7 +278,8 @@ resource "proxmox_vm_qemu" "cups" {
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
- 
+  tags = "aldpro"
+
   agent = 1
   os_type = "cloud-init"
   cores = 2
@@ -318,7 +325,8 @@ resource "proxmox_vm_qemu" "smb" {
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
- 
+  tags = "aldpro"
+
   agent = 1
   os_type = "cloud-init"
   cores = 2
