@@ -372,7 +372,8 @@ resource "proxmox_vm_qemu" "logs" {
   target_node = var.proxmox_host
   clone = var.template_name
   qemu_os = "l26"
- 
+  tags = "aldpro"
+
   agent = 1
   os_type = "cloud-init"
   cores = 2
