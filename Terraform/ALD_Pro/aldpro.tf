@@ -22,6 +22,9 @@ resource "proxmox_vm_qemu" "dc" {
  
   # count.index начинается с 0, поэтому +1 означает, что эта виртуальная машина будет названа test-vm-1 в Proxmox.
   name = "aldpro-dc-${count.index + 1}"
+
+  # Тип ОС, в примере используется Linux 6.x - 2.6 Kernel
+  qemu_os = "l26"
  
   # Теперь происходит обращение к файлу vars. Эта переменная содержит значение "pve"
   target_node = var.proxmox_host
@@ -84,6 +87,7 @@ resource "proxmox_vm_qemu" "dhcp" {
   name = "aldpro-dhcp"
   target_node = var.proxmox_host
   clone = var.template_name
+  qemu_os = "l26"
  
   agent = 1
   os_type = "cloud-init"
@@ -129,6 +133,7 @@ resource "proxmox_vm_qemu" "zabbix" {
   name = "aldpro-zabbix"
   target_node = var.proxmox_host
   clone = var.template_name
+  qemu_os = "l26"
  
   agent = 1
   os_type = "cloud-init"
@@ -174,6 +179,7 @@ resource "proxmox_vm_qemu" "repo" {
   name = "aldpro-repo"
   target_node = var.proxmox_host
   clone = var.template_name
+  qemu_os = "l26"
  
   agent = 1
   os_type = "cloud-init"
@@ -219,6 +225,7 @@ resource "proxmox_vm_qemu" "pxe" {
   name = "aldpro-pxe"
   target_node = var.proxmox_host
   clone = var.template_name
+  qemu_os = "l26"
  
   agent = 1
   os_type = "cloud-init"
@@ -264,6 +271,7 @@ resource "proxmox_vm_qemu" "cups" {
   name = "aldpro-cups"
   target_node = var.proxmox_host
   clone = var.template_name
+  qemu_os = "l26"
  
   agent = 1
   os_type = "cloud-init"
@@ -309,6 +317,7 @@ resource "proxmox_vm_qemu" "smb" {
   name = "aldpro-smb"
   target_node = var.proxmox_host
   clone = var.template_name
+  qemu_os = "l26"
  
   agent = 1
   os_type = "cloud-init"
@@ -354,6 +363,7 @@ resource "proxmox_vm_qemu" "logs" {
   name = "aldpro-logs"
   target_node = var.proxmox_host
   clone = var.template_name
+  qemu_os = "l26"
  
   agent = 1
   os_type = "cloud-init"
