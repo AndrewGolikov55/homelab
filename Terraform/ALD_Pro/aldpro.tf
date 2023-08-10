@@ -33,6 +33,8 @@ resource "proxmox_vm_qemu" "dc" {
   clone = var.template_name
 
   tags = "aldpro"
+
+  onboot = "true"
  
   # Основные настройки ВМ. Агент относится к гостевому агенту.
   agent = 1
@@ -91,6 +93,7 @@ resource "proxmox_vm_qemu" "dhcp" {
   clone = var.template_name
   qemu_os = "l26"
   tags = "aldpro"
+  onboot = "true"
 
   agent = 1
   os_type = "cloud-init"
@@ -138,6 +141,7 @@ resource "proxmox_vm_qemu" "zabbix" {
   clone = var.template_name
   qemu_os = "l26"
   tags = "aldpro"
+  onboot = "true"
 
   agent = 1
   os_type = "cloud-init"
@@ -185,6 +189,7 @@ resource "proxmox_vm_qemu" "repo" {
   clone = var.template_name
   qemu_os = "l26"
   tags = "aldpro"
+  onboot = "true"
 
   agent = 1
   os_type = "cloud-init"
@@ -232,6 +237,7 @@ resource "proxmox_vm_qemu" "pxe" {
   clone = var.template_name
   qemu_os = "l26"
   tags = "aldpro"
+  onboot = "true"
 
   agent = 1
   os_type = "cloud-init"
@@ -279,6 +285,7 @@ resource "proxmox_vm_qemu" "cups" {
   clone = var.template_name
   qemu_os = "l26"
   tags = "aldpro"
+  onboot = "true"
 
   agent = 1
   os_type = "cloud-init"
@@ -326,6 +333,7 @@ resource "proxmox_vm_qemu" "smb" {
   clone = var.template_name
   qemu_os = "l26"
   tags = "aldpro"
+  onboot = "true"
 
   agent = 1
   os_type = "cloud-init"
@@ -373,6 +381,7 @@ resource "proxmox_vm_qemu" "logs" {
   clone = var.template_name
   qemu_os = "l26"
   tags = "aldpro"
+  onboot = "true"
 
   agent = 1
   os_type = "cloud-init"
