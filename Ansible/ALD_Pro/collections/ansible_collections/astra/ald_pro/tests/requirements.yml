@@ -1,5 +1,0 @@
----
-collections:
-  - name: astra.ald_pro
-    type: dir
-    source: ..
