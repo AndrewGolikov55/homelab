@@ -1,2 +1,3 @@
 *.tfstate*
 .terraform.lock.hcl
+/Ansible/ALD_Pro/collections

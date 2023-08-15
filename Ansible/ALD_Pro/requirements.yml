@@ -1,5 +1,5 @@
 collections:
   - name: astra.ald_pro
     type: git
-    version: 0.2.0
     source: ssh://git@hub.astra-automation.ru:2222/aa-gca/ARFA/ald_pro.git
+    version: 0.5.1
