@@ -1,13 +1,22 @@
 ---
-- hosts: all
+- hosts: server
   become: yes
   tasks:
-    - name: Manage /etc/cloud/cloud.cfg.d/95_manage_etc_hosts.cfg file
-      copy:
-        content: |
-          preserve_hostname: true
-          manage_etc_hosts: localhost
-        dest: /etc/cloud/cloud.cfg.d/95_manage_etc_hosts.cfg
-        owner: root
-        group: root
-        mode: '0644'
+    - name: Ensure cloud-init does not update /etc/hosts
+      lineinfile:
+        path: /etc/cloud/cloud.cfg
+        backrefs: yes
+        regexp: '^\s*- update_etc_hosts'
+        state: absent
+    - name: Ensure cloud-init does not update /etc/hostname
+      lineinfile:
+        path: /etc/cloud/cloud.cfg
+        backrefs: yes
+        regexp: '^\s*- update_hostname'
+        state: absent
+        notify: Restart cloud-init
+  handlers:
+    - name: Restart cloud-init
+      systemd:
+        name: cloud-init
+        state: restarted
