@@ -1,5 +1,5 @@
 ---
-- hosts: server
+- hosts: all
   become: yes
   tasks:
     - name: Ensure cloud-init does not update /etc/hosts
