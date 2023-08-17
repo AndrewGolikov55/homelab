@@ -1,5 +1,6 @@
 ---
 - hosts: server
+  become: yes
   tasks:
     - name: Manage /etc/cloud/cloud.cfg.d/95_manage_etc_hosts.cfg file
       copy:
