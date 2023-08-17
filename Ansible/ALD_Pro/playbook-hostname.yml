@@ -14,7 +14,6 @@
         backrefs: yes
         regexp: '^\s*- update_hostname'
         state: absent
-        notify: Restart cloud-init
   handlers:
     - name: Restart cloud-init
       systemd:
