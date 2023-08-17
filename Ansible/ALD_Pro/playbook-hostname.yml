@@ -1,0 +1,12 @@
+---
+- hosts: server
+  tasks:
+    - name: Manage /etc/cloud/cloud.cfg.d/95_manage_etc_hosts.cfg file
+      copy:
+        content: |
+          preserve_hostname: true
+          manage_etc_hosts: localhost
+        dest: /etc/cloud/cloud.cfg.d/95_manage_etc_hosts.cfg
+        owner: root
+        group: root
+        mode: '0644'
