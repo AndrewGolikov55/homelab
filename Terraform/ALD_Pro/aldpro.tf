@@ -21,7 +21,7 @@ resource "proxmox_vm_qemu" "dc" {
   count = 2
  
   # count.index начинается с 0, поэтому +1 означает, что эта виртуальная машина будет названа test-vm-1 в Proxmox.
-  name = "dc${count.index + 1}.aldpro.lan"
+  name = "dc${count.index + 1}"
 
   # Тип ОС, в примере используется Linux 6.x - 2.6 Kernel
   qemu_os = "l26"
@@ -85,7 +85,7 @@ resource "proxmox_vm_qemu" "dc" {
   EOF
 }
 
-resource "proxmox_vm_qemu" "dhcp.aldpro.lan" {
+resource "proxmox_vm_qemu" "dhcp" {
    
   count = 1
   name = "dhcp"
@@ -133,7 +133,7 @@ resource "proxmox_vm_qemu" "dhcp.aldpro.lan" {
   EOF
 }
 
-resource "proxmox_vm_qemu" "zabbix.aldpro.lan" {
+resource "proxmox_vm_qemu" "zabbix" {
    
   count = 1
   name = "zabbix"
@@ -181,7 +181,7 @@ resource "proxmox_vm_qemu" "zabbix.aldpro.lan" {
   EOF
 }
 
-resource "proxmox_vm_qemu" "repo.aldpro.lan" {
+resource "proxmox_vm_qemu" "repo" {
    
   count = 1
   name = "repo"
@@ -229,7 +229,7 @@ resource "proxmox_vm_qemu" "repo.aldpro.lan" {
   EOF
 }
 
-resource "proxmox_vm_qemu" "pxe.aldpro.lan" {
+resource "proxmox_vm_qemu" "pxe" {
    
   count = 1
   name = "pxe"
@@ -277,7 +277,7 @@ resource "proxmox_vm_qemu" "pxe.aldpro.lan" {
   EOF
 }
 
-resource "proxmox_vm_qemu" "cups.aldpro.lan" {
+resource "proxmox_vm_qemu" "cups" {
    
   count = 1
   name = "cups"
@@ -325,7 +325,7 @@ resource "proxmox_vm_qemu" "cups.aldpro.lan" {
   EOF
 }
 
-resource "proxmox_vm_qemu" "smb.aldpro.lan" {
+resource "proxmox_vm_qemu" "smb" {
    
   count = 1
   name = "smb"
@@ -373,7 +373,7 @@ resource "proxmox_vm_qemu" "smb.aldpro.lan" {
   EOF
 }
 
-resource "proxmox_vm_qemu" "logs.aldpro.lan" {
+resource "proxmox_vm_qemu" "logs" {
    
   count = 1
   name = "logs"
