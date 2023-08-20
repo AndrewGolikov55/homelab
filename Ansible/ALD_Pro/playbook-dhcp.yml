@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Удалить строки из файла /etc/network/interfaces
+      ansible.builtin.lineinfile:
+        path: /etc/network/interfaces
+        state: absent
+        line: "{{ item }}"
+      loop:
+        - "allow-hotplug eth0"
+        - "iface eth0 inet dhcp"
+    
+    - name: Перезапустить службу networking в Debian
+      ansible.builtin.systemd:
+        name: networking
+        state: restarted
+        daemon_reload: yes
