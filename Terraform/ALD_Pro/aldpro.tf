@@ -54,7 +54,7 @@ resource "proxmox_vm_qemu" "dc" {
     # Установите здесь размер диска. Оставьте его маленьким для тестирования, расширение диска требует времени.
     size = "50G"
     type = "scsi"
-    storage = "local-zfs"
+    storage = "ext4"
     iothread = 0
   }
    
@@ -108,7 +108,7 @@ resource "proxmox_vm_qemu" "dhcp" {
     slot = 0
     size = "30G"
     type = "scsi"
-    storage = "local-zfs"
+    storage = "ext4"
     iothread = 0
   }
    
@@ -156,7 +156,7 @@ resource "proxmox_vm_qemu" "zabbix" {
     slot = 0
     size = "30G"
     type = "scsi"
-    storage = "local-zfs"
+    storage = "ext4"
     iothread = 0
   }
    
@@ -204,7 +204,7 @@ resource "proxmox_vm_qemu" "repo" {
     slot = 0
     size = "100G"
     type = "scsi"
-    storage = "local-zfs"
+    storage = "ext4"
     iothread = 0
   }
    
@@ -252,7 +252,7 @@ resource "proxmox_vm_qemu" "pxe" {
     slot = 0
     size = "30G"
     type = "scsi"
-    storage = "local-zfs"
+    storage = "ext4"
     iothread = 0
   }
    
@@ -300,7 +300,7 @@ resource "proxmox_vm_qemu" "cups" {
     slot = 0
     size = "30G"
     type = "scsi"
-    storage = "local-zfs"
+    storage = "ext4"
     iothread = 0
   }
    
@@ -348,7 +348,7 @@ resource "proxmox_vm_qemu" "smb" {
     slot = 0
     size = "30G"
     type = "scsi"
-    storage = "local-zfs"
+    storage = "ext4"
     iothread = 0
   }
    
@@ -396,7 +396,7 @@ resource "proxmox_vm_qemu" "logs" {
     slot = 0
     size = "30G"
     type = "scsi"
-    storage = "local-zfs"
+    storage = "ext4"
     iothread = 0
   }
    
