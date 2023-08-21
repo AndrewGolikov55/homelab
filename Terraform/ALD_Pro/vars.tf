@@ -9,5 +9,5 @@ variable "proxmox_host" {
 
 # Наименование template, который будет использоваться для деплоя ВМ
 variable "template_name" {
-    default = "alse-vanilla-1.7.4-cloud-max"
+    default = "alse-vanilla-1.7.3-cloud-max"
 }
