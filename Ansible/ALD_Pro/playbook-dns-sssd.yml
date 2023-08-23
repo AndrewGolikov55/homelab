@@ -1,0 +1,20 @@
+---
+- hosts: clients
+  tasks:
+    - name: Update sssd.conf
+      blockinfile:
+        path: /etc/sssd/sssd.conf
+        marker: "# {mark} ANSIBLE MANAGED BLOCK"
+        insertafter: '\[domain/aldpro.lan\]'
+        block: |
+          dyndns_update = true
+          dyndns_refresh_interval = 43200
+          dyndns_update_ptr = true
+          dyndns_ttl = 3600
+      become: yes
+
+    - name: Restart sssd service
+      systemd:
+        state: restarted
+        name: sssd
+      become: yes

@@ -1,0 +1,13 @@
+---
+- hosts: all 
+  become: yes
+  tasks:
+    - name: Очистить и обновить файл /etc/apt/sources.list
+      copy:
+        dest: /etc/apt/sources.list
+        content: |
+          deb https://dl.astralinux.ru/astra/frozen/1.7_x86-64/1.7.3/repository-base/ 1.7_x86-64 main contrib non-free
+          deb https://dl.astralinux.ru/astra/frozen/1.7_x86-64/1.7.3/repository-extended/ 1.7_x86-64 main contrib non-free
+    - name: Обновление пакетов
+      apt:
+        update_cache: yes
