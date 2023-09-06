@@ -1,0 +1,25 @@
+---
+- name: Set hostname and update /etc/hosts file
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Set hostname
+      hostname:
+        name: "{{ inventory_hostname }}"
+
+    - name: Update /etc/hosts file
+      lineinfile:
+        dest: /etc/hosts
+        regexp: '.*{{ ansible_nodename }}$'
+        line: "{{ ansible_host }} {{ inventory_hostname }}"
+        state: present
+
+    - name: Remove armbian line from /etc/hosts
+      lineinfile:
+        dest: /etc/hosts
+        regexp: '^127.0.1.1\   armbian'
+        state: absent
+
+    - name: Reboot after hostname change
+      reboot:
