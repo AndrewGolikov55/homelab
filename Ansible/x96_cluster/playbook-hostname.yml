@@ -27,7 +27,7 @@
 
     - name: Show the new ansible_host
       debug:
-        msg: "The new ansible_host is {{ ansible_host }}"
+        msg: "The new ansible_host is <{{ ansible_host }} {{ inventory_hostname }}"
 
     - name: Reboot after hostname change
       reboot:
