@@ -1,8 +1,12 @@
 ---
 - name: Set hostname and update /etc/hosts file
-  hosts: all
   become: yes
   tasks:
 
-    - name: Executing script of deleting k3s
+    - name: Executing script of deleting server k3s
+      hosts: masters
       shell: /usr/local/bin/k3s-uninstall.sh
+    
+    - name: Executing script of deleting agent k3s
+      hosts: agents
+      shell: /usr/local/bin/k3s-agent-uninstall.sh
