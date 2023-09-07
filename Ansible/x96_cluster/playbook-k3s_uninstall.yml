@@ -1,0 +1,7 @@
+---
+- name: Set hostname and update /etc/hosts file
+  hosts: all
+  become: yes
+
+    - name: Executing script of deleting k3s
+      shell: /usr/local/bin/k3s-uninstall.sh
