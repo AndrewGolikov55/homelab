@@ -1,14 +1,14 @@
----
 - name: Executing script of deleting server k3s
   hosts: masters
   become: yes
   tasks:
+   - name: run k3s uninstall script
+     shell: /usr/local/bin/k3s-uninstall.sh
+     ignore_errors: yes
 
-    - shell: /usr/local/bin/k3s-uninstall.sh
-    
 - name: Executing script of deleting agent k3s
   hosts: agents
   become: yes
   tasks:
-
-    - shell: /usr/local/bin/k3s-agent-uninstall.sh
+   - name: run k3s agent uninstall script
+     shell: /usr/local/bin/k3s-agent-uninstall.sh
