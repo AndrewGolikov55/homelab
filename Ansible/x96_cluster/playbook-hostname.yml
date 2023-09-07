@@ -5,11 +5,14 @@
   gather_facts: yes
   tasks:
 
-    - name: Set hostname
-      command: 
-        cmd: "hostnamectl set-hostname {{ inventory_hostname }}"
-      register: hostname_result
-
+    - name: Clear and set hostname in /etc/hostname
+      copy: 
+        content: "{{ inventory_hostname }}"
+        dest: /etc/hostname
+        owner: root
+        group: root
+        mode: '0644'
+        
     - name: Show the new hostname
       debug:
         msg: "The new hostname is {{ inventory_hostname }}"
