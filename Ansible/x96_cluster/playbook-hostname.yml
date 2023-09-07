@@ -12,7 +12,7 @@
         owner: root
         group: root
         mode: '0644'
-        
+
     - name: Show the new hostname
       debug:
         msg: "The new hostname is {{ inventory_hostname }}"
@@ -30,7 +30,7 @@
 
     - name: Show the new ansible_host
       debug:
-        msg: "The new ansible_host is <{{ ansible_host }} {{ inventory_hostname }}"
+        msg: "The new ansible_host is <{{ ansible_host }} {{ inventory_hostname }}>"
 
     - name: Reboot after hostname change
       reboot:
