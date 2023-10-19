@@ -1,0 +1,17 @@
+# ARM
+[cluster]
+x96-node1
+x96-node2
+x96-node3
+x96-node4
+x96-node5
+
+[servers]
+media
+
+# Unraid
+[nas]
+nas
+
+[routers]
+pfsense
