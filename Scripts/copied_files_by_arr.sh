@@ -1,20 +1,29 @@
 #!/bin/bash
+
+# Данный скрипт помогает в случаях когда:
+# Radarr - https://github.com/Radarr/Radarr
+# и
+# Sonarr - https://github.com/Sonarr/Sonarr
+# При импорте контента вместо создания жёсткой  
+# ссылки производят копирование файла, что
+# приводит к двойному потребению постоянной памяти.
+
 # Начальное время
 start=`date +%s`
 
-# Определяем директории
-download_dir="/mnt/user/MyBOX/Downloads/complete"
-films_dir1="/mnt/user/MyBox/Films"
-films_dir2="/mnt/user/MyBox/Serials"
+# Определяем директории 
+download_dir="/path/to/downloads/folder"
+films_dir1="/path/to/films/folder"
+serials_dir2="/path/to/serials/folder"
 
 # Определяем файл для записи логов
 log_file="./deleted_files.log"
 
-#↓ Декларация ассоциативного массива
+# Декларация ассоциативного массива
 declare -A films_files_map
 
 # Заполняем ассоциативный массив именами файлов из директории Films и Serials
-for films_dir in $films_dir1 $films_dir2
+for films_dir in $films_dir1 $serials_dir2
 do
   while IFS=  read -r -d $'\0'; do
       _file="$(basename "${REPLY}")"
