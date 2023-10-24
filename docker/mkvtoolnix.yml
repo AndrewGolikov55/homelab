@@ -1,0 +1,26 @@
+version: "3.2"
+services:
+  plex:
+    image: jlesage/mkvtoolnix:latest
+    container_name: mkvtoolnix
+    ports:
+      - 5800:5800
+    restart: unless-stopped
+    volumes:
+      - /docker/mkvtoolnix:/config
+      - type: volume
+        source: MyBOX
+        target: /MyBOX
+        volume:
+          nocopy: true
+    healthcheck:
+      test: ["CMD-SHELL", "df -hT | grep nfs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+volumes:
+  MyBOX:
+    driver_opts:
+      type: "nfs"
+      o: "addr=172.16.0.15,nolock,soft,rw"
+      device: ":/mnt/user/MyBOX"

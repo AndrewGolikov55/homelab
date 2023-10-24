@@ -2,5 +2,5 @@
 aldpro_domain: aldpro.lan
 aldpro_pdc_ip: 10.10.11.31
 aldpro_pdc_name: dc1
-aldpro_admin_password: "46f0a76b"
+aldpro_admin_password: "P@ssw0rd"
 aldpro_version: 2.1.0

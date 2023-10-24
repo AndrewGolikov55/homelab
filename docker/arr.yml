@@ -1,0 +1,100 @@
+version: '3.2'
+
+services:
+
+   prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+    volumes:
+      - /docker/prowlarr:/config
+    network_mode: "host"
+    restart: unless-stopped
+
+   radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+    volumes:
+      - /docker/radarr:/config
+      - type: volume
+        source: MyBOX
+        target: /MyBOX
+        volume:
+          nocopy: true
+    restart: unless-stopped
+    network_mode: "host"
+    healthcheck:
+      test: ["CMD-SHELL", "df -hT | grep nfs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+   sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+    volumes:
+      - /docker/sonarr:/config
+      - type: volume
+        source: MyBOX
+        target: /MyBOX
+        volume:
+          nocopy: true
+    restart: unless-stopped
+    network_mode: "host"
+    healthcheck:
+      test: ["CMD-SHELL", "df -hT | grep nfs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+   overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+    volumes:
+      - /docker/overseerr:/config
+    network_mode: "host"
+    restart: unless-stopped
+
+   lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+    network_mode: "host"
+    restart: unless-stopped
+    volumes:
+      - /docker/lidarr:/config
+      - type: volume
+        source: MyBOX
+        target: /MyBOX
+        volume:
+          nocopy: true
+    healthcheck:
+      test: ["CMD-SHELL", "df -hT | grep nfs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+      
+volumes:
+  MyBOX:
+    driver_opts:
+      type: "nfs"
+      o: "addr=172.16.0.15,nolock,soft,rw"
+      device: ":/mnt/user/MyBOX"
