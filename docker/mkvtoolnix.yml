@@ -1,0 +1,27 @@
+version: "3.2"
+services:
+  # Сервис MKVToolNix - набор инструментов для редактирования MKV файлов
+  plex:
+    image: jlesage/mkvtoolnix:latest
+    container_name: mkvtoolnix
+    ports:
+      - 5800:5800  # Проброс порта для доступа к веб-интерфейсу
+    restart: unless-stopped
+    volumes:
+      - ${MKVTOOLNIX_BIND}:/config  # Путь к текущим конфигурациям MKVToolNix
+      - type: volume
+        source: MyBOX
+        target: /MyBOX  # Монтирование NFS ресурса
+        volume:
+          nocopy: true
+    healthcheck:
+      test: ["CMD-SHELL", "df -hT | grep nfs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+volumes:
+  MyBOX:
+    driver_opts:
+      type: "nfs"  # Тип драйвера для монтирования - NFS
+      o: $NFS_OPTIONS   # Опции монтирования NFS
+      device: $NFS_DEVICE  # Путь на NFS сервере для монтирования

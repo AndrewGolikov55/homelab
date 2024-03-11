@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  homepage:
+    image: ghcr.io/benphelps/homepage:latest
+    container_name: homepage
+    ports:
+      - $PORT:3000  # Порт по которому будет доступен сервис
+    volumes:
+      - $HOMEPAGE_BIND:/app/config  # Точка монтирования конфигурации сервиса
+      - /var/run/docker.sock:/var/run/docker.sock:ro 

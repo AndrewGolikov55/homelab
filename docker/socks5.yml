@@ -1,0 +1,12 @@
+version: '3'
+services:
+
+  socks5:
+    restart: always
+    image: serjs/go-socks5-proxy
+    environment:
+      - PROXY_USER=$USER  # Имя пользователя для подключения
+      - PROXY_PASSWORD=$PASSWORD  # Пароль пользователя
+      - PROXY_PORT=1080
+    ports:
+      - ${PORT}:1080  # Порт по которому будет доступен прокси

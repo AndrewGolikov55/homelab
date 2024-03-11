@@ -1,0 +1,130 @@
+version: '3.2'
+
+services:
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=$PUID  # ID пользователя от имени которого работает контейнер
+      - PGID=$PGID  # ID группы от имени которой работает контейнер
+      - TZ=$TZ  # Временная зона контейнера
+    volumes:
+      - ${PROWLARR_BIND}:/config  # Путь до конфигурационных файлов на хост-машине
+    network_mode: "host"
+    restart: unless-stopped
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=$PUID  
+      - PGID=$PGID  
+      - TZ=$TZ  
+    volumes:
+      - ${RADARR_BIND}:/config  # Путь до конфигурационных файлов
+      - type: volume
+        source: nfs_share
+        target: $NFS_SHARE_TARGET  # Куда будет монтироваться NFS
+        volume:
+          nocopy: true
+    restart: unless-stopped
+    network_mode: "host"
+    healthcheck:
+      test: ["CMD-SHELL", "df -hT | grep nfs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=$PUID  
+      - PGID=$PGID  
+      - TZ=$TZ  
+    volumes:
+      - ${SONARR_BIND}:/config  
+      - type: volume
+        source: nfs_share
+        target: $NFS_SHARE_TARGET
+        volume:
+          nocopy: true
+    restart: unless-stopped
+    network_mode: "host"
+    healthcheck:
+      test: ["CMD-SHELL", "df -hT | grep nfs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+  overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    environment:
+      - PUID=$PUID  
+      - PGID=$PGID  
+      - TZ=$TZ  
+    volumes:
+      - ${OVERSEERR_BIND}:/config  # Путь до конфигурационных файлов
+    network_mode: "host"
+    restart: unless-stopped
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=$PUID  
+      - PGID=$PGID  
+      - TZ=$TZ  
+    network_mode: "host"
+    volumes:
+      - ${LIDARR_BIND}:/config  # Путь до конфигурационных файлов
+      - type: volume
+        source: nfs_share
+        target: $NFS_SHARE_TARGET
+        volume:
+          nocopy: true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "df -hT | grep nfs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    network_mode: "host"
+    environment:
+      - PUID=$PUID  
+      - PGID=$PGID  
+      - TZ=$TZ  
+      - TRANSMISSION_WEB_HOME=$TRANSMISSION_WEB_HOME  # Путь до веб-интерфейса Transmission
+      - USER=$TRANSMISSION_USER  # Имя пользователя для Transmission
+      - PASS=$TRANSMISSION_PASS  # Пароль пользователя для Transmission
+    volumes:
+      - ${TRANSMISSION_BIND}:/config  # Путь до конфигурационных файлов
+      - type: volume
+        source: nfs_share
+        target: $NFS_SHARE_TARGET
+        volume:
+          nocopy: true
+      - type: volume
+        source: nfs_share_downloads
+        target: /downloads  # Путь для загрузок
+        volume:
+          nocopy: true
+    restart: unless-stopped
+        
+volumes:
+  nfs_share:
+    driver_opts:
+      type: "nfs"  # Используем NFS
+      o: $NFS_SHARE_OPTIONS  # Опции монтирования NFS
+      device: $NFS_SHARE_DEVICE  # Путь на NFS сервере
+  nfs_share_downloads:
+    driver_opts:
+      type: "nfs"
+      o: $NFS_SHARE_OPTIONS
+      device: $NFS_SHARE_DEVICE_DOWNLOADS  # Путь на NFS сервере для загрузок

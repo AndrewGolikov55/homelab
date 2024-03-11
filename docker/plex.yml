@@ -1,0 +1,33 @@
+version: "3.2"
+services:
+  # Сервис для Plex Media Server
+  plex:
+    image: linuxserver/plex:version-1.30.1.6562-915986d62
+    container_name: plex
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - PUID=$PUID  # ID пользователя от имени которого работает контейнер   
+      - PGID=$PGID  # ID группы от имени которой работает контейнер
+      - VERSION=docker
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - ${PLEX_BIND}:/config  # Путь до конфигурационных файлов на хост-машине
+      - type: volume
+        source: nfs_share
+        target: $NFS_SHARE_TARGET  # Куда будет монтироваться NFS
+        volume:
+          nocopy: true
+    healthcheck:
+      test: ["CMD-SHELL", "df -hT | grep nfs || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  nfs_share:
+    driver_opts:
+      type: "nfs"  # Используем NFS
+      o: $NFS_SHARE_OPTIONS  # Опции монтирования NFS
+      device: $NFS_SHARE_DEVICE  # Путь на NFS сервере
