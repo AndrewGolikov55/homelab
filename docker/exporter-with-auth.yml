@@ -3,8 +3,6 @@ services:
   node_exporter:
     image: vuongtlt13/node_exporter
     container_name: node_exporter
-    build:
-      context: ./node_exporter
     command:
       - "--path.rootfs=/host"
     ports:
@@ -20,8 +18,6 @@ services:
   cadvisor:
     image: vuongtlt13/cadvisor
     container_name: cadvisor
-    build:
-      context: ./cadvisor
     ports:
       - ${CADVISOR_PORT}:8080 # Порт для доступа к Cadvisor
     command: 
