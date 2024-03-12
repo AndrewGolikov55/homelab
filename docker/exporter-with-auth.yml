@@ -1,7 +1,7 @@
 version: '3'
 services:
   node_exporter:
-    image: vuongtlt13/node_exporter
+    image: vuongtlt13/node-exporter
     container_name: node_exporter
     command:
       - "--path.rootfs=/host"
