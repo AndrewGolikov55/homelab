@@ -63,6 +63,7 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     networks:
       - monitor-net
+    privileged: true
     restart: on-failure
 
   grafana:
